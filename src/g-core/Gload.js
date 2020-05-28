@@ -1,11 +1,10 @@
 import { Loader } from 'pixi.js'
-import { resources } from './resources'
 const loader = new Loader()
 class Gload {
   static getLoader() {
     return loader
   }
-  static loadAll() {
+  static loadAll(resources) {
     return new Promise(resolve => {
       for (const key in resources) {
         try {

@@ -1,26 +1,25 @@
-import G from './G'
-import Gitem from './Gitem'
+import G from '@/g-core/G'
+import Gitem from '@/g-core/Gitem'
+import Gload from '@/g-core/Gload'
 class Player extends Gitem {
-  constructor(texture) {
-    super(texture)
-  }
-  getSprite() {
-    return this.sprite
+  constructor() {
+    const loader = Gload.getLoader()
+    super(loader.resources['player'].texture)
   }
   init() {
     const config = G.getConfig()
-    this.sprite.vy = 0
-    this.sprite.vx = 0
-    this.sprite.y = config.height / 2 - this.sprite.height
-    this.sprite.buttonMode = true
-    this.sprite.interactive = true
-    this.sprite.anchor.set(0.5, 0.5)
-    this.sprite.scale.set(2)
+    this.vy = 0
+    this.vx = 0
+    this.y = config.height / 2 - this.height
+    this.buttonMode = true
+    this.interactive = true
+    this.anchor.set(0.5, 0.5)
+    this.scale.set(2)
     this.createControlHandle()
   }
   createControlHandle() {
     const config = G.getConfig()
-    let self = this.sprite
+    let self = this
     self
       .on('pointerdown', event => {
         self.dragging = true
