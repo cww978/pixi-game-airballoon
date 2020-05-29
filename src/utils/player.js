@@ -4,7 +4,7 @@ import Gload from '@/g-core/Gload'
 class Player extends Gitem {
   constructor() {
     const loader = Gload.getLoader()
-    super(loader.resources['player'].texture)
+    super(loader.resources['player'].texture, 'player')
   }
   init() {
     const config = G.getConfig()

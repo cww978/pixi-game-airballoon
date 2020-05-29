@@ -8,9 +8,6 @@
 <script>
 import G from '@/g-core/G'
 import Gload from '@/g-core/Gload'
-import Enemy from '@/utils/enemy'
-import Bump from 'bump.js'
-import * as PIXI from 'pixi.js'
 import SceneManager from '@/utils/SceneManager'
 import { resources } from '@/utils/resources'
 export default {
@@ -32,50 +29,26 @@ export default {
     await Gload.loadAll(resources)
     this.initScene()
     // setInterval(() => {
-    //   this.addEnemy()
-    //   setTimeout(() => {
-    //     this.addEnemy()
-    //   }, 100)
+    //   this.scene.gameScene.generateEmemy()
     // }, 500)
-    // this.app.ticker.add(this.gameLoop)
+    this.app.ticker.add(this.gameLoop)
   },
   methods: {
     gameLoop() {
-      this.enemys.forEach(item => {
-        item.update()
-        if (this.check(this.scene.gameScene.player, item)) {
-          this.removeEnemy(item)
-        }
-      })
+      this.scene.gameScene.update()
     },
     // 初始化场景
     initScene() {
       this.scene.gameScene = this.sceneManager.getGameScene()
       this.scene.gameScene.initPlayer()
+      this.scene.gameScene.on('play:hit', this.handleHit)
       this.scene.uiScene = this.sceneManager.getUiScene()
       this.scene.uiScene.initScore()
       this.app.stage.addChild(this.scene.gameScene)
       this.app.stage.addChild(this.scene.uiScene)
     },
-    addEnemy() {
-      const enemy = new Enemy()
-      this.scene.gameScene.addChild(enemy)
-      this.enemys.push(enemy)
-    },
-    removeEnemy(item) {
+    handleHit() {
       this.sceneManager.scenes['ui-scene'].addScore(10)
-      item.visible = false
-    },
-    check(s1, s2) {
-      if (s1.visible == false || s2.visible == false) {
-        return false
-      }
-      const bump = new Bump(PIXI)
-      if (bump.hit(s1, s2)) {
-        return true
-      } else {
-        return false
-      }
     }
   }
 }

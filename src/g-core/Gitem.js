@@ -1,11 +1,12 @@
 import { Sprite } from 'pixi.js'
 class Gitem extends Sprite {
-  constructor(texture) {
+  constructor(texture, tag = 'sprite') {
     super(texture)
     this.ax = 0
     this.ay = 0
     this.vx = 0
     this.vy = 0
+    this.tag = tag
     this.init()
   }
   init() {}

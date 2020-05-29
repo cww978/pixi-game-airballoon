@@ -4,7 +4,7 @@ import Gload from '@/g-core/Gload'
 class Enemy extends Gitem {
   constructor() {
     const loader = Gload.getLoader()
-    super(loader.resources['player'].texture)
+    super(loader.resources['player'].texture, 'enemy')
   }
   init() {
     this.vy = 3
